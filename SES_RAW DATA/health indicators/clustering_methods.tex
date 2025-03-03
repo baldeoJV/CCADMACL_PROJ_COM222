@@ -1,0 +1,68 @@
+
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+
+\title{Comparative Analysis of K-Means, DBSCAN, and Agglomerative Clustering}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Clustering is an unsupervised machine learning technique used to group similar data points together. 
+It is widely used in various domains, including pattern recognition, image segmentation, customer segmentation, 
+and anomaly detection. This document provides a detailed background on three commonly used clustering algorithms: 
+K-Means, DBSCAN, and Agglomerative Clustering, including their formulas, parameters, and benchmarking strategies.
+
+\section{Background on Clustering Algorithms}
+
+\subsection{K-Means Clustering}
+\textbf{Formula:} The objective of K-Means is to minimize the within-cluster sum of squares (WCSS):
+\begin{equation}
+J = \sum_{i=1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2
+\end{equation}
+where \( k \) is the number of clusters, \( x \) is a data point belonging to cluster \( C_i \), 
+and \( \mu_i \) is the centroid of cluster \( C_i \).
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( k \): Number of clusters (user-defined).
+    \item Max iterations: Maximum number of times the algorithm iterates to converge.
+    \item Centroid initialization method: Random or k-means++.
+    \item Distance metric: Euclidean distance (most common).
+\end{itemize}
+
+\subsection{DBSCAN (Density-Based Spatial Clustering of Applications with Noise)}
+\textbf{Formula:} DBSCAN relies on the concept of density reachability:
+\begin{itemize}
+    \item A point \( p \) is a core point if it has at least MinPts points within Eps distance.
+    \item A point \( q \) is directly density-reachable from \( p \) if:
+\end{itemize}
+\begin{equation}
+\text{dist}(p, q) \leq \text{Eps}
+\end{equation}
+
+\subsection{Agglomerative Clustering}
+\textbf{Formula:} Agglomerative Clustering starts with each data point as an individual cluster and iteratively merges clusters based 
+on a linkage criterion. Common linkage methods include:
+\begin{itemize}
+    \item \textbf{Single Linkage}: \( d(C_i, C_j) = \min(d(x_i, x_j)) \)
+    \item \textbf{Complete Linkage}: \( d(C_i, C_j) = \max(d(x_i, x_j)) \)
+    \item \textbf{Average Linkage}: \( d(C_i, C_j) = \frac{1}{|C_i| |C_j|} \sum_{x_i \in C_i, x_j \in C_j} d(x_i, x_j) \)
+\end{itemize}
+
+\section{Methodology for Benchmarking}
+Performance metrics include:
+\begin{itemize}
+    \item Silhouette Score, Davies-Bouldin Index, Calinski-Harabasz Index.
+    \item Computational time for efficiency comparison.
+    \item Accuracy, scalability, and robustness.
+\end{itemize}
+
+\section{Conclusion}
+Each clustering algorithm has strengths and weaknesses, making them suitable for different scenarios. The choice of 
+algorithm depends on dataset characteristics, computational constraints, and required clustering structure.
+
+\end{document}
