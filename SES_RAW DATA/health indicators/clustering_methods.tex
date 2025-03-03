@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath, amssymb, graphicx, hyperref}
 \usepackage{setspace}
+\usepackage{cite}
 \doublespacing
 
 \title{A Theoretical Framework for Clustering Methods in Machine Learning}
@@ -21,108 +22,54 @@ Clustering is a fundamental data analysis technique used in pattern recognition,
 \section{Clustering Methods}
 
 \subsection{K-Means Clustering}
-K-Means is a widely used centroid-based clustering algorithm that aims to minimize the variance within each cluster by iteratively updating cluster centroids. It is computationally efficient and effective for well-separated, spherical clusters.
+K-Means is a widely used centroid-based clustering algorithm that aims to minimize the variance within each cluster by iteratively updating cluster centroids. It is computationally efficient and effective for well-separated, spherical clusters \cite{Lloyd1982}.
 
 \subsubsection{Mathematical Formulation}
-Given a dataset with $n$ data points, the K-Means algorithm partitions them into $k$ clusters by minimizing the intra-cluster variance:
+Given a dataset with $n$ data points, the K-Means algorithm partitions them into $k$ clusters by minimizing the intra-cluster variance \cite{Kanungo2002}:
 \begin{equation}
 J = \sum_{i=1}^{k} \sum_{x \in C_i} ||x - \mu_i||^2,
 \end{equation}
 where $C_i$ represents cluster $i$, $\mu_i$ is the centroid of cluster $i$, and $||x - \mu_i||^2$ is the squared Euclidean distance.
 
-\subsubsection{Parameters}
-\begin{itemize}
-    \item $k$: Number of clusters.
-    \item Centroids: Initial cluster centers (randomly selected or initialized via K-Means++).
-    \item Stopping criterion: Maximum iterations or convergence threshold.
-\end{itemize}
-
-\subsubsection{Performance Measures}
-\begin{itemize}
-    \item Sum of Squared Errors (SSE): Measures the total squared distance of data points from their respective centroids.
-    \item Inertia: The total within-cluster sum of squared distances.
-    \item Silhouette Score: Evaluates how well each data point fits within its assigned cluster.
-    \item Davies-Bouldin Index (DBI): Measures cluster compactness and separation.
-    \item Calinski-Harabasz Index: Assesses cluster dispersion and separation.
-\end{itemize}
-
 \subsection{DBSCAN (Density-Based Spatial Clustering of Applications with Noise)}
-DBSCAN is a density-based clustering algorithm that groups closely packed points in dense regions while marking outliers as noise. Unlike K-Means, DBSCAN does not require the number of clusters to be specified in advance and can detect clusters of arbitrary shape.
+DBSCAN is a density-based clustering algorithm that groups closely packed points in dense regions while marking outliers as noise. Unlike K-Means, DBSCAN does not require the number of clusters to be specified in advance and can detect clusters of arbitrary shape \cite{Ester1996}.
 
 \subsubsection{Mathematical Formulation}
 DBSCAN relies on two parameters: $\varepsilon$ (neighborhood radius) and $minPts$ (minimum points in a cluster). A point $p$ is a core point if:
 \begin{equation}
 |N_{\varepsilon}(p)| \geq minPts,
 \end{equation}
-where $N_{\varepsilon}(p)$ represents the set of points within distance $\varepsilon$ of $p$.
-
-\subsubsection{Parameters}
-\begin{itemize}
-    \item $\varepsilon$: Neighborhood radius.
-    \item $minPts$: Minimum points required to form a dense region.
-\end{itemize}
-
-\subsubsection{Performance Measures}
-\begin{itemize}
-    \item Silhouette Score
-    \item Davies-Bouldin Index (DBI)
-    \item Adjusted Rand Index (ARI)
-\end{itemize}
+where $N_{\varepsilon}(p)$ represents the set of points within distance $\varepsilon$ of $p$ \cite{Jain1988}.
 
 \subsection{Agglomerative Hierarchical Clustering}
-Agglomerative clustering is a bottom-up hierarchical clustering technique that iteratively merges clusters based on a linkage criterion.
+Agglomerative clustering is a bottom-up hierarchical clustering technique that iteratively merges clusters based on a linkage criterion \cite{Xu2005}.
 
-\subsubsection{Mathematical Formulation}
-Given two clusters $A$ and $B$, the linkage function $d(A, B)$ can be defined as:
-\begin{equation}
-d(A, B) = \min_{a \in A, b \in B} d(a, b) \quad \text{(Single Linkage)},
-\end{equation}
-\begin{equation}
-d(A, B) = \max_{a \in A, b \in B} d(a, b) \quad \text{(Complete Linkage)},
-\end{equation}
-\begin{equation}
-d(A, B) = \frac{1}{|A| |B|} \sum_{a \in A} \sum_{b \in B} d(a, b) \quad \text{(Average Linkage)}.
-\end{equation}
-
-\subsubsection{Parameters}
-\begin{itemize}
-    \item Linkage criterion: Single, complete, or average linkage.
-    \item Distance metric: Euclidean, Manhattan, etc.
-    \item Number of clusters (optional if cutting the dendrogram).
-\end{itemize}
-
-\subsubsection{Performance Measures}
-\begin{itemize}
-    \item Silhouette Score
-    \item Calinski-Harabasz Index
-    \item Davies-Bouldin Index (DBI)
-\end{itemize}
-
-\section{Performance Measures}
-To evaluate the effectiveness of clustering algorithms, several internal validation metrics are used.
-
-\subsection{Silhouette Score}
-The Silhouette Score measures how similar a data point is to its own cluster compared to other clusters. It is defined as:
-\begin{equation}
-S(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))},
-\end{equation}
-where $a(i)$ is the average intra-cluster distance, and $b(i)$ is the lowest average inter-cluster distance.
-
-\subsection{Davies-Bouldin Index (DBI)}
-DBI evaluates clustering quality based on the compactness and separation of clusters:
-\begin{equation}
-DBI = \frac{1}{k} \sum_{i=1}^{k} \max_{j \neq i} \frac{s_i + s_j}{d_{ij}},
-\end{equation}
-where $s_i$ is the average distance within cluster $i$, and $d_{ij}$ is the distance between cluster centroids.
-
-\subsection{Calinski-Harabasz Index}
-The Calinski-Harabasz Index measures the ratio of between-cluster dispersion to within-cluster dispersion:
-\begin{equation}
-CH = \frac{Tr(B_k)}{Tr(W_k)} \times \frac{n-k}{k-1},
-\end{equation}
-where $B_k$ is the between-cluster dispersion matrix, $W_k$ is the within-cluster dispersion matrix, $n$ is the number of data points, and $k$ is the number of clusters.
+\subsection{Performance Measures}
+Several internal validation metrics are used to evaluate clustering effectiveness \cite{Jain1988}.
 
 \section{Conclusion}
 This paper has provided a theoretical overview of major clustering algorithms, their mathematical foundations, and performance evaluation techniques. Future work may involve empirical comparisons of these methods on real-world datasets.
+
+\begin{thebibliography}{99}
+
+
+\bibitem[17]{Lloyd1982}  
+S. P. Lloyd, "Least squares quantization in PCM," \textit{IEEE Transactions on Information Theory}, vol. 28, no. 2, pp. 129–137, 1982.
+
+\bibitem[18]{Kanungo2002}  
+T. Kanungo, D. M. Mount, N. S. Netanyahu, C. D. Piatko, R. Silverman, and A. Y. Wu, "An efficient k-means clustering algorithm: Analysis and implementation," \textit{IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 24, no. 7, pp. 881–892, 2002.
+
+\bibitem[19]{Ester1996}  
+M. Ester, H.-P. Kriegel, J. Sander, and X. Xu, "A density-based algorithm for discovering clusters in large spatial databases with noise," in \textit{Proceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD'96)}, Portland, OR, USA, 1996, pp. 226–231.
+
+\bibitem[20]{Jain1988}  
+A. K. Jain and R. C. Dubes, \textit{Algorithms for Clustering Data}. Prentice Hall, 1988.
+
+\bibitem[21]{Xu2005}  
+R. Xu and D. Wunsch, "Survey of clustering algorithms," \textit{IEEE Transactions on Neural Networks}, vol. 16, no. 3, pp. 645–678, 2005.
+
+\end{thebibliography}
+
+
 
 \end{document}
